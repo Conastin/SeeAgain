@@ -12,15 +12,15 @@ import android.os.Build
 import android.os.Bundle
 import android.telephony.TelephonyManager
 import android.util.Log
-import android.widget.Button
-import android.widget.TextView
 import androidx.annotation.RequiresApi
+import com.highcapable.betterandroid.system.extension.component.startServiceOrElse
 import com.highcapable.betterandroid.ui.component.activity.AppBindingActivity
 import com.highcapable.betterandroid.ui.extension.view.toast
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import im.see.again.databinding.ActivityMainBinding
+import im.see.again.util.BackgroundTimerService
 import im.see.again.util.LocationUtil
 
 
@@ -33,31 +33,56 @@ class MainActivity : AppBindingActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         // 检查权限授予情况
         checkPermission(this)
+        // 初始化
+        init()
+        // 绑定监听事件
+        bindOnclickListener()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun init() {
+//        // 初始化获取网络状态
+//        getNetworking(this)
+//        // 初始化获取电池信息
+//        getBattery()
+        // 开启监听
+        Log.d(_tag, "启动Service - ${BackgroundTimerService::class.simpleName}")
+        if (!startServiceOrElse(packageName, BackgroundTimerService::class.qualifiedName!!)) {
+            toast("后台Service启用失败，无法自动上传数据")
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun bindOnclickListener() {
         // 获取联网状态
-        findViewById<Button>(R.id.buttonGetNetworking).setOnClickListener {
+        binding.buttonGetNetworking.setOnClickListener {
             getNetworking(this)
         }
         // 获取定位
-        findViewById<Button>(R.id.buttonGetLocation).setOnClickListener {
+        binding.buttonGetLocation.setOnClickListener {
             if (!locationStatus) getLocation(this)
             else closeLocation()
         }
         // 获取电量
-        findViewById<Button>(R.id.buttonGetBattery).setOnClickListener {
+        binding.buttonGetBattery.setOnClickListener {
             getBattery()
+        }
+        // 打开设置frame
+        binding.buttonSetting.setOnClickListener {
+
         }
     }
 
     /**
-     * TODO: 临时方法
      * 设置文本控件
      */
     private fun setText(text: String) {
-        findViewById<TextView>(R.id.textView).text = text
+        if ("" != text) toast(text)
+        binding.textView.text = text
     }
 
     private fun addText(text: String) {
-        val textView = findViewById<TextView>(R.id.textView)
+        val textView = binding.textView
         val temp = textView.text as String
         textView.text = temp.plus(text)
     }
@@ -183,7 +208,7 @@ class MainActivity : AppBindingActivity<ActivityMainBinding>() {
             })
     }
 
-    fun closeLocation() {
+    private fun closeLocation() {
         LocationUtil.getInstance(this)!!.stopLocationUpdates()
         locationStatus = false
     }
@@ -271,6 +296,28 @@ class MainActivity : AppBindingActivity<ActivityMainBinding>() {
                             XXPermissions.startPermissionActivity(context, permissions)
                         } else {
                             toast("获取位置权限失败")
+                        }
+                    }
+                })
+        }
+        // 请求忽略电池优化
+        if (!XXPermissions.isGranted(context, Permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)) {
+            toast("需要更改设置为无限制")
+            XXPermissions.with(context).permission(Permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+                .request(object : OnPermissionCallback {
+                    override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
+                        toast("忽略电池优化成功")
+                    }
+
+                    override fun onDenied(
+                        permissions: MutableList<String>, doNotAskAgain: Boolean
+                    ) {
+                        if (doNotAskAgain) {
+                            toast("被永久拒绝授权，请手动忽略电池优化")
+                            // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                            XXPermissions.startPermissionActivity(context, permissions)
+                        } else {
+                            toast("忽略电池优化失败")
                         }
                     }
                 })
