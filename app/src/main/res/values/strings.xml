@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">See Again</string>
+    <string name="get_networking">获取联网状态</string>
+    <string name="get_location">获取定位</string>
+    <string name="get_battery">获取电量</string>
 </resources>
