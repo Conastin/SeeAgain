@@ -15,6 +15,7 @@ android {
         versionName = property.project.app.versionName
         versionCode = property.project.app.versionCode
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
     buildTypes {
         release {
@@ -50,6 +51,7 @@ dependencies {
     implementation(androidx.constraintlayout.constraintlayout)
     implementation(androidx.room.room.runtime)
     implementation(androidx.room.room.ktx)
+    implementation(androidx.swiperefreshlayout.swiperefreshlayout)
     annotationProcessor(androidx.room.room.compiler)
     // 权限请求框架
     implementation(com.github.getActivity.xxPermissions)

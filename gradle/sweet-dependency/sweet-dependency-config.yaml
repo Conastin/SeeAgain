@@ -67,3 +67,6 @@ libraries:
       version: 2.6.1
     room-ktx:
       version: 2.6.1
+  androidx.swiperefreshlayout:
+    swiperefreshlayout:
+      version: 1.1.0
