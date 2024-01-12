@@ -20,6 +20,8 @@ plugins:
   org.jetbrains.kotlin.android:
     alias: kotlin-android
     version: 1.9.22
+  com.google.devtools.ksp:
+    version: 1.9.22-1.0.16
 
 libraries:
   com.highcapable.betterandroid:
@@ -55,6 +57,13 @@ libraries:
   com.github.getActivity:
     xxPermissions:
       version: 18.5
-  com.amap.api:
-    location:
-      version: 6.4.2
+#  com.amap.api:
+#    location:
+#      version: 6.4.2
+  androidx.room:
+    room-compiler:
+      version: 2.6.1
+    room-runtime:
+      version: 2.6.1
+    room-ktx:
+      version: 2.6.1

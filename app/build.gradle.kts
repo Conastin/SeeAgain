@@ -1,8 +1,7 @@
-import org.jetbrains.kotlin.ir.backend.js.compile
-
 plugins {
     autowire(libs.plugins.android.application)
     autowire(libs.plugins.kotlin.android)
+    autowire(libs.plugins.com.google.devtools.ksp)
 }
 
 android {
@@ -49,13 +48,16 @@ dependencies {
     implementation(androidx.appcompat.appcompat)
     implementation(com.google.android.material.material)
     implementation(androidx.constraintlayout.constraintlayout)
+    implementation(androidx.room.room.runtime)
+    implementation(androidx.room.room.ktx)
+    annotationProcessor(androidx.room.room.compiler)
     // 权限请求框架
     implementation(com.github.getActivity.xxPermissions)
     // 高德地图-定位SDK
-    implementation(files("lib\\AMap_Location_V6.4.2_20231215.jar"))
-    compileOnly(com.amap.api.location)
+//    implementation(files("lib\\AMap_Location_V6.4.2_20231215.jar"))
+//    compileOnly(com.amap.api.location)
     testImplementation(junit.junit)
     androidTestImplementation(androidx.test.ext.junit)
     androidTestImplementation(androidx.test.espresso.espresso.core)
-
+    ksp(androidx.room.room.compiler)
 }
