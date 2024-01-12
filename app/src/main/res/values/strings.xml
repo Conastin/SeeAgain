@@ -3,4 +3,9 @@
     <string name="get_networking">获取联网状态</string>
     <string name="get_location">获取定位</string>
     <string name="get_battery">获取电量</string>
+    <string name="settings">设置</string>
+    <string name="battery">电量</string>
+    <string name="exampleDateTime">2024–01–10 11:06:56</string>
+    <string name="icon">图标</string>
+    <string name="exampleRate">10%</string>
 </resources>
