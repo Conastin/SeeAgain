@@ -1,43 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <com.amap.api.maps.MapView
+        android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="match_parent"/>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp" />
-    </ScrollView>
-
-    <Button
-        android:id="@+id/buttonGetNetworking"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/get_networking"
-        android:textColor="#212121"
-        tools:ignore="VisualLintButtonSize" />
-
-    <Button
-        android:id="@+id/buttonGetLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/get_location"
-        android:textColor="#212121"
-        tools:ignore="VisualLintButtonSize" />
-
-    <Button
-        android:id="@+id/buttonGetBattery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/get_battery" />
-</LinearLayout>
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/bottom_nav_menu" />
+</FrameLayout>

@@ -2,25 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- 高德API KEY -->
-    <meta-data
-        android:name="com.amap.api.v2.apikey"
-        android:value="	b0ee9708d028465aadffcb3781d55785" />
-
-    <!-- 用于获取网络权限 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 用于获取读取电话信息权限 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- 用于获取读取电话号码权限 -->
-    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
-    <!-- 用于获取wifi的获取权限 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- 用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- 用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- 忽略电池优化 -->
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!--允许程序打开网络套接字-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 用于获取网络权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 用于获取读取电话信息权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" /> <!-- 用于获取读取电话号码权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 用于获取wifi的获取权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" /> <!-- 忽略电池优化 -->
 
     <application
         android:allowBackup="true"
@@ -29,22 +18,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DefaultAppTheme"
         tools:targetApi="31">
+        <!-- 高德API KEY -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="b0ee9708d028465aadffcb3781d55785" />
 
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false"
+            android:label="@string/title_activity_history"
+            android:theme="@style/Theme.DefaultAppTheme" />
         <!-- 后台定时任务 -->
         <service
             android:name=".util.BackgroundTimerService"
             android:enabled="true"
             android:exported="false" />
+        <!-- 高德地图定位服务 -->
+        <service android:name="com.amap.api.location.APSService" />
 
         <activity
             android:name=".MainActivity"
             android:excludeFromRecents="true"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

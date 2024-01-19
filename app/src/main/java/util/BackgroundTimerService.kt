@@ -78,7 +78,7 @@ class BackgroundTimerService : Service() {
         Thread {
             val latest = seeAgainDao.getLatest(type)
             Log.d(_tag, "最新的：$latest")
-            if (latest.content == content.toString()) {
+            if ((latest != null) && (latest.content == content.toString())) {
                 return@Thread
             }
             val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.CHINA)

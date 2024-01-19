@@ -57,9 +57,9 @@ libraries:
   com.github.getActivity:
     xxPermissions:
       version: 18.5
-#  com.amap.api:
-#    location:
-#      version: 6.4.2
+  com.amap.api:
+    3dmap:
+      version: 9.8.3
   androidx.room:
     room-compiler:
       version: 2.6.1

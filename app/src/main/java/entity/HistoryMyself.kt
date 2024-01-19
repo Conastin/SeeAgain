@@ -8,5 +8,6 @@ data class HistoryMyself(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val time: String,
     val content: String,
-    val type: Int
+    val type: Int,
+    val uploadFlag: Boolean? = false
 )

@@ -12,7 +12,7 @@ interface HistoryMyselfDao {
     fun getAll(): List<HistoryMyself>
 
     @Query("SELECT * FROM history_myself WHERE type = :type ORDER BY id DESC LIMIT 1")
-    fun getLatest(type: Int): HistoryMyself
+    fun getLatest(type: Int): HistoryMyself?
 
     @Insert
     fun insertAll(vararg historyMyself: HistoryMyself)

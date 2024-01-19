@@ -5,6 +5,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("C:\\Users\\Conastin\\Desktop\\SeeAgainPackagedKey.jks")
+            storePassword = "123456"
+            keyAlias = "SeeAgainKeyStore"
+            keyPassword = "123456"
+        }
+    }
     namespace = property.project.app.packageName
     compileSdk = property.project.android.compileSdk
 
@@ -21,6 +29,9 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -52,12 +63,12 @@ dependencies {
     implementation(androidx.room.room.runtime)
     implementation(androidx.room.room.ktx)
     implementation(androidx.swiperefreshlayout.swiperefreshlayout)
+    // 高德地图-地图SDK
+    implementation(files("lib/AMap3DMap_9.8.3_AMapLocation_6.4.2_20231215.jar"))
     annotationProcessor(androidx.room.room.compiler)
     // 权限请求框架
     implementation(com.github.getActivity.xxPermissions)
-    // 高德地图-定位SDK
-//    implementation(files("lib\\AMap_Location_V6.4.2_20231215.jar"))
-//    compileOnly(com.amap.api.location)
+    compileOnly(com.amap.api.edmap)
     testImplementation(junit.junit)
     androidTestImplementation(androidx.test.ext.junit)
     androidTestImplementation(androidx.test.espresso.espresso.core)
